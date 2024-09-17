@@ -8,7 +8,7 @@
 import SwiftUI
 
 // var CardOrder = Array(1...100).shuffled()[0..<7]
-var side = Bool.random()
+// var side = Bool.random()
 
 func colorForIndex(_ index: Int) -> Color {
     let hue = Double(index) / 100.0
@@ -16,11 +16,11 @@ func colorForIndex(_ index: Int) -> Color {
 }
 
 
-func getSymbol(i : Int) -> String {
-    if i == 0 {
+func getSymbol(mod : Int) -> String {
+    if mod == 0 {
         return "star.fill"
     }
-    else if i == 1 {
+    else if mod == 1 {
         return "circle.slash"
     }
     else {
@@ -28,78 +28,24 @@ func getSymbol(i : Int) -> String {
     }
 }
 
-var TokenView: some View {
-    ZStack{
-        Circle()
-            .frame(width: 150, height: 150)
-            .foregroundStyle(.black)
-            .overlay(Circle().stroke(Color.white, lineWidth: 2).frame(width: 130, height: 130))
-        Text(side ? "LO" : "HI")
-            .font(.largeTitle)
-            .fontWeight(.bold)
-            .foregroundStyle(.white)
-    }.padding()
-}
-
-/*
-struct CornerSymbols: View {
-    var i: Int
-    var body: some View {
-        VStack {
-            HStack{
-                Symbol(i: i)
-                Spacer()
-            }
-            Spacer()
-            HStack{
-                Spacer()
-                Symbol(i: i)
-            }
-        }
-    }
-}
-*/
-/*
-struct Symbol: View {
-    var i: Int
+struct TokenView: View {
+    var side: Bool
     var body: some View {
         ZStack{
             Circle()
-                .foregroundStyle(.white)
-                .frame(width: 25, height: 25)
-            Image(systemName: getSymbol(i: i % 10))
+                .frame(width: 150, height: 150)
                 .foregroundStyle(.black)
-        }
-        .padding(5)
+                .overlay(Circle().stroke(Color.white, lineWidth: 2).frame(width: 130, height: 130))
+            Text(side ? "LO" : "HI")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
+        }.padding()
     }
-}*/
-
-
-/*var ShuffleButton: some View {
-    Button(action: {
-        CardOrder = Array(1...100).shuffled()[0..<7]
-            }) {
-                Text("Shuffle")
-                    .font(.headline)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }
-}*/
-/*
-var HandView: some View {
-    ScrollView{
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], content: {
-            ForEach(CardOrder, id: \.self) { item in
-                CardView(i: item)
-            }
-        }).padding()
-    }
-}*/
+}
 
 struct CardView: View {
-    var i: Int
+    var index: Int
     @State var up: Bool = true
     var body: some View {
         ZStack{
@@ -113,9 +59,9 @@ struct CardView: View {
             }
             else {
                 RoundedRectangle(cornerRadius: 15.0)
-                    .fill(colorForIndex(i))
+                    .fill(colorForIndex(index))
                 CenterCircle
-                if i % 10 < 3 {
+                if index % 10 < 3 {
                     CornerSymbols
                 }
             }
@@ -162,7 +108,8 @@ struct CardView: View {
         ZStack{
             Circle()
                 .frame(width: 70, height: 70)
-            Text(String(i))
+                .foregroundStyle(.black)
+            Text(String(index))
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
@@ -174,7 +121,7 @@ struct CardView: View {
             Circle()
                 .foregroundStyle(.white)
                 .frame(width: 25, height: 25)
-            Image(systemName: getSymbol(i: i % 10))
+            Image(systemName: getSymbol(mod: index % 10))
                 .foregroundStyle(.black)
         }
         .padding(5)
@@ -198,6 +145,7 @@ struct CardView: View {
 
 struct GameView: View {
     @State var CardOrder = Array(1...100).shuffled()[0..<7]
+    @State var side = true
     var body: some View {
         ZStack{
             // hex: #007700
@@ -205,28 +153,36 @@ struct GameView: View {
             VStack {
                 HStack{
                     Spacer()
-                    TokenView
-                    Button(action: {
-                        CardOrder = Array(1...100).shuffled()[0..<7]
-                            }) {
-                                Text("Shuffle")
-                                    .font(.headline)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
-                            }
+                    TokenView(side: side)
+                    ShuffleButton
                     Spacer()
                 }
-                
-                ScrollView{
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], content: {
-                        ForEach(CardOrder, id: \.self) { item in
-                            CardView(i: item)
-                        }
-                    }).padding()
-                }
+                Hand
             }
+        }
+    }
+    
+    var ShuffleButton: some View {
+        Button(action: {
+            CardOrder = Array(1...100).shuffled()[0..<7]
+            side = Bool.random()
+                }) {
+                    Text("Shuffle")
+                        .font(.headline)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+    }
+    
+    var Hand: some View {
+        ScrollView{
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], content: {
+                ForEach(CardOrder, id: \.self) { item in
+                    CardView(index: item)
+                }
+            }).padding()
         }
     }
 }
