@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-var CardOrder = Array(1...100).shuffled()[0..<7]
+// var CardOrder = Array(1...100).shuffled()[0..<7]
+var side = Bool.random()
 
 func colorForIndex(_ index: Int) -> Color {
     let hue = Double(index) / 100.0
@@ -27,55 +28,20 @@ func getSymbol(i : Int) -> String {
     }
 }
 
-
-var HI: some View {
-    HStack{
-        ZStack{
-            Circle()
-                .stroke(.white)
-                .padding(10)
-                .frame(width: 70, height: 70)
-            Text("HI")
-                .font(.title)
-                .fontWeight(.medium)
-                .foregroundStyle(.white)
-        }
-        Spacer()
-    }
-}
-
-
-var LO: some View {
-    HStack{
-        Spacer()
-        ZStack{
-            Circle()
-                .stroke(.white)
-                .padding(10)
-                .frame(width: 70, height: 70)
-            Text("LO")
-                .font(.title)
-                .fontWeight(.medium)
-                .foregroundStyle(.white)
-        }
-    }
-}
-
-
-var HiLoToken: some View {
+var TokenView: some View {
     ZStack{
         Circle()
             .frame(width: 150, height: 150)
             .foregroundStyle(.black)
             .overlay(Circle().stroke(Color.white, lineWidth: 2).frame(width: 130, height: 130))
-        Text("LO")
+        Text(side ? "LO" : "HI")
             .font(.largeTitle)
             .fontWeight(.bold)
             .foregroundStyle(.white)
     }.padding()
 }
 
-
+/*
 struct CornerSymbols: View {
     var i: Int
     var body: some View {
@@ -92,8 +58,8 @@ struct CornerSymbols: View {
         }
     }
 }
-
-
+*/
+/*
 struct Symbol: View {
     var i: Int
     var body: some View {
@@ -106,22 +72,10 @@ struct Symbol: View {
         }
         .padding(5)
     }
-}
+}*/
 
 
-struct CenterCircle: View {
-    var i: Int
-    var body: some View {
-        Circle()
-            .frame(width: 70, height: 70)
-        Text(String(i))
-            .font(.largeTitle)
-            .fontWeight(.bold)
-            .foregroundStyle(.white)    }
-}
-
-
-var ShuffleButton: some View {
+/*var ShuffleButton: some View {
     Button(action: {
         CardOrder = Array(1...100).shuffled()[0..<7]
             }) {
@@ -132,8 +86,8 @@ var ShuffleButton: some View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
             }
-}
-
+}*/
+/*
 var HandView: some View {
     ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], content: {
@@ -142,7 +96,7 @@ var HandView: some View {
             }
         }).padding()
     }
-}
+}*/
 
 struct CardView: View {
     var i: Int
@@ -160,21 +114,90 @@ struct CardView: View {
             else {
                 RoundedRectangle(cornerRadius: 15.0)
                     .fill(colorForIndex(i))
-                CenterCircle(i: i)
+                CenterCircle
                 if i % 10 < 3 {
-                    CornerSymbols(i: i)
+                    CornerSymbols
                 }
             }
         }.frame(width: 100, height: 155)
-            .onTapGesture {
-                up = !up
+         .onTapGesture {
+             up = !up
+         }
+    }
+    
+    var HI: some View {
+        HStack{
+            ZStack{
+                Circle()
+                    .stroke(.white)
+                    .padding(10)
+                    .frame(width: 70, height: 70)
+                Text("HI")
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.white)
             }
+            Spacer()
+        }
+    }
+
+
+    var LO: some View {
+        HStack{
+            Spacer()
+            ZStack{
+                Circle()
+                    .stroke(.white)
+                    .padding(10)
+                    .frame(width: 70, height: 70)
+                Text("LO")
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.white)
+            }
+        }
+    }
+    
+    var CenterCircle: some View {
+        ZStack{
+            Circle()
+                .frame(width: 70, height: 70)
+            Text(String(i))
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
+        }
+    }
+    
+    var Symbol: some View {
+        ZStack{
+            Circle()
+                .foregroundStyle(.white)
+                .frame(width: 25, height: 25)
+            Image(systemName: getSymbol(i: i % 10))
+                .foregroundStyle(.black)
+        }
+        .padding(5)
+    }
+    
+    var CornerSymbols: some View {
+        VStack {
+            HStack{
+                Symbol
+                Spacer()
+            }
+            Spacer()
+            HStack{
+                Spacer()
+                Symbol
+            }
+        }
     }
 }
 
 
-
 struct GameView: View {
+    @State var CardOrder = Array(1...100).shuffled()[0..<7]
     var body: some View {
         ZStack{
             // hex: #007700
@@ -182,11 +205,27 @@ struct GameView: View {
             VStack {
                 HStack{
                     Spacer()
-                    HiLoToken
-                    ShuffleButton
+                    TokenView
+                    Button(action: {
+                        CardOrder = Array(1...100).shuffled()[0..<7]
+                            }) {
+                                Text("Shuffle")
+                                    .font(.headline)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                            }
                     Spacer()
                 }
-                HandView
+                
+                ScrollView{
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], content: {
+                        ForEach(CardOrder, id: \.self) { item in
+                            CardView(i: item)
+                        }
+                    }).padding()
+                }
             }
         }
     }
