@@ -14,8 +14,8 @@
             filePath = "HiLoFlip/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "CardView"
             landmarkType = "14">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "HiLoFlip/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "getSymbol(mod:)"
             landmarkType = "9">
          </BreakpointContent>

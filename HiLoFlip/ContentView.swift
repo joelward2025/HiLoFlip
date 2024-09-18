@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+let underlinedNums = [6, 9, 66, 99, 68, 86, 89, 98, 60, 90, 69, 96]
+
 func colorForIndex(_ index: Int) -> Color {
     let hue = Double(index) / 100.0
     return Color(hue: hue, saturation: 0.8, brightness: 1)
@@ -25,14 +27,14 @@ func getSymbol(mod : Int) -> String {
 }
 
 struct TokenView: View {
-    var side: Bool
+    var isUp: Bool
     var body: some View {
         ZStack{
             Circle()
                 .frame(width: 150, height: 150)
                 .foregroundStyle(.black)
                 .overlay(Circle().stroke(Color.white, lineWidth: 2).frame(width: 130, height: 130))
-            Text(side ? "LO" : "HI")
+            Text(isUp ? "HI" : "LO")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
@@ -42,16 +44,16 @@ struct TokenView: View {
 
 struct CardView: View {
     var index: Int
-    @State var up: Bool = true
+    @State var isFaceUp: Bool = true
     
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 15.0)
-                .fill(up ? colorForIndex(index) : .black)
-            up ? AnyView(Front) : AnyView(Back)
+                .fill(isFaceUp ? colorForIndex(index) : .black)
+            isFaceUp ? AnyView(Front) : AnyView(Back)
         }.frame(width: 100, height: 155)
          .onTapGesture {
-             up = !up
+             isFaceUp = !isFaceUp
          }.padding(5)
     }
     
@@ -61,6 +63,7 @@ struct CardView: View {
             if index % 10 < 3 {
                 CornerSymbols
             }
+            
         }
     }
     
@@ -114,9 +117,10 @@ struct CardView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
+                .underline(underlinedNums.contains(index))
         }
     }
-    
+
     var Symbol: some View {
         ZStack{
             Circle()
@@ -146,7 +150,7 @@ struct CardView: View {
 
 struct GameView: View {
     @State var CardOrder = Array(1...100).shuffled()[0..<7]
-    @State var side = true
+    @State var tokenSide = true
     
     var body: some View {
         ZStack{
@@ -161,7 +165,7 @@ struct GameView: View {
     var TopBar: some View {
         HStack{
             Spacer()
-            TokenView(side: side)
+            TokenView(isUp: tokenSide)
             ShuffleButton
             Spacer()
         }
@@ -170,7 +174,7 @@ struct GameView: View {
     var ShuffleButton: some View {
         Button(action: {
             CardOrder = Array(1...100).shuffled()[0..<7]
-            side = Bool.random()}) {
+            tokenSide = Bool.random()}) {
                     Text("Shuffle")
                         .font(.headline)
                         .padding()
