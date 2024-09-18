@@ -7,14 +7,10 @@
 
 import SwiftUI
 
-// var CardOrder = Array(1...100).shuffled()[0..<7]
-// var side = Bool.random()
-
 func colorForIndex(_ index: Int) -> Color {
     let hue = Double(index) / 100.0
     return Color(hue: hue, saturation: 0.8, brightness: 1)
 }
-
 
 func getSymbol(mod : Int) -> String {
     if mod == 0 {
@@ -47,60 +43,65 @@ struct TokenView: View {
 struct CardView: View {
     var index: Int
     @State var up: Bool = true
+    
     var body: some View {
         ZStack{
-            if !up {
-                RoundedRectangle(cornerRadius: 15.0)
-                    .fill(.black)
-                VStack{
-                    HI
-                    LO
-                }
-            }
-            else {
-                RoundedRectangle(cornerRadius: 15.0)
-                    .fill(colorForIndex(index))
-                CenterCircle
-                if index % 10 < 3 {
-                    CornerSymbols
-                }
-            }
+            RoundedRectangle(cornerRadius: 15.0)
+                .fill(up ? colorForIndex(index) : .black)
+            up ? AnyView(Front) : AnyView(Back)
         }.frame(width: 100, height: 155)
          .onTapGesture {
              up = !up
-         }
+         }.padding(5)
+    }
+    
+    var Front: some View {
+        ZStack {
+            CenterCircle
+            if index % 10 < 3 {
+                CornerSymbols
+            }
+        }
+    }
+    
+    var Back: some View {
+        VStack{
+            HStack{
+                HI
+                Spacer()
+            }
+            Spacer()
+            HStack{
+                Spacer()
+                LO
+            }
+        }
     }
     
     var HI: some View {
-        HStack{
-            ZStack{
-                Circle()
-                    .stroke(.white)
-                    .padding(10)
-                    .frame(width: 70, height: 70)
-                Text("HI")
-                    .font(.title)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.white)
-            }
-            Spacer()
+        ZStack{
+            Circle()
+                .stroke(.white)
+                .padding(10)
+                .frame(width: 70, height: 70)
+            Text("HI")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
         }
     }
 
 
     var LO: some View {
-        HStack{
-            Spacer()
-            ZStack{
-                Circle()
-                    .stroke(.white)
-                    .padding(10)
-                    .frame(width: 70, height: 70)
-                Text("LO")
-                    .font(.title)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.white)
-            }
+        ZStack{
+            Circle()
+                .stroke(.white)
+                .padding(10)
+                .frame(width: 70, height: 70)
+            Text("LO")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
         }
     }
     
@@ -146,27 +147,30 @@ struct CardView: View {
 struct GameView: View {
     @State var CardOrder = Array(1...100).shuffled()[0..<7]
     @State var side = true
+    
     var body: some View {
         ZStack{
-            // hex: #007700
             Color(red: 0, green: (119/255), blue: 0).ignoresSafeArea()
             VStack {
-                HStack{
-                    Spacer()
-                    TokenView(side: side)
-                    ShuffleButton
-                    Spacer()
-                }
+                TopBar
                 Hand
             }
+        }
+    }
+    
+    var TopBar: some View {
+        HStack{
+            Spacer()
+            TokenView(side: side)
+            ShuffleButton
+            Spacer()
         }
     }
     
     var ShuffleButton: some View {
         Button(action: {
             CardOrder = Array(1...100).shuffled()[0..<7]
-            side = Bool.random()
-                }) {
+            side = Bool.random()}) {
                     Text("Shuffle")
                         .font(.headline)
                         .padding()
