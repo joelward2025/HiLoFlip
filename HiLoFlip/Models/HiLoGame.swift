@@ -34,6 +34,7 @@ struct HiLoGame {
             players[p].hand = []
         }
         self.deck = Array(1...100).map {Card(value: $0)}
+        self.isTokenHi = Bool.random()
         dealCards()
     }
     

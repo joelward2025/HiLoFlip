@@ -38,22 +38,42 @@ struct TokenView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
-        }.padding()
+        }
     }
 }
 
 struct CardView: View {
     let card: HiLoGame.Card
+    
     let cardAspectRatio = 2/3.0
+    let centerCircleRatio = 2/3.0
+    let bigCircleText = 0.3
+    let smallCircleText = 0.15
+    let HiLoCircleRatio = 0.7
+    let symbolRatio = 0.25
+    @State var cardWidth = 10.0
     
     var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: 15.0)
-                .fill(card.isFaceUp ? colorForIndex(card.value) : .black)
-            card.isFaceUp ? AnyView(Front) : AnyView(Back)
-        }.frame(width: 80, height: 125)
-         .padding(5)
+        GeometryReader { geometry in
+            ZStack{
+                cardBackground
+                card.isFaceUp ? AnyView(Front) : AnyView(Back)
+            }
+            .onAppear {
+                cardWidth = geometry.size.width
+            }
+            .onChange(of: geometry.size.width) { oldWidth, newWidth in
+                cardWidth = newWidth
+            }
+        }
+        .aspectRatio(cardAspectRatio, contentMode: .fit)
     }
+    
+    @ViewBuilder
+    var cardBackground: some View {
+        RoundedRectangle(cornerRadius: 15.0)
+            .fill(card.isFaceUp ? colorForIndex(card.value) : .black)
+        }
     
     var Front: some View {
         ZStack {
@@ -83,8 +103,8 @@ struct CardView: View {
         ZStack{
             Circle()
                 .stroke(.white)
-                .padding(10)
-                .frame(width: 70, height: 70)
+                .padding(cardWidth / 10)
+                .frame(width: HiLoCircleRatio * cardWidth, height: HiLoCircleRatio * cardWidth)
             Text("HI")
                 .font(.title)
                 .fontWeight(.bold)
@@ -92,13 +112,12 @@ struct CardView: View {
         }
     }
 
-
     var LO: some View {
         ZStack{
             Circle()
                 .stroke(.white)
-                .padding(10)
-                .frame(width: 70, height: 70)
+                .padding(cardWidth / 10)
+                .frame(width: HiLoCircleRatio * cardWidth, height: HiLoCircleRatio * cardWidth)
             Text("LO")
                 .font(.title)
                 .fontWeight(.bold)
@@ -109,10 +128,10 @@ struct CardView: View {
     var CenterCircle: some View {
         ZStack{
             Circle()
-                .frame(width: 56, height: 56)
+                .frame(width: cardWidth * centerCircleRatio, height: cardWidth * centerCircleRatio)
                 .foregroundStyle(.black)
             Text(String(card.value))
-                .font(.title)
+                .font(.system(size: bigCircleText * cardWidth))
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
                 .underline(underlinedNums.contains(card.value))
@@ -123,7 +142,7 @@ struct CardView: View {
         ZStack{
             Circle()
                 .foregroundStyle(.white)
-                .frame(width: 25, height: 25)
+                .frame(width: cardWidth * symbolRatio, height: cardWidth * symbolRatio)
             Image(systemName: getSymbol(mod: card.value % 10))
                 .foregroundStyle(.black)
         }
@@ -154,13 +173,13 @@ struct GameView: View {
             Color(red: 0, green: (119/255), blue: 0).ignoresSafeArea()
             VStack {
                 Hand(index: 0)
-                MidBar
+                midBar
                 Hand(index: 1)
             }
         }
     }
     
-    var MidBar: some View {
+    var midBar: some View {
         HStack{
             Spacer()
             TokenView(isUp: game.isTokenHi)
@@ -185,14 +204,13 @@ struct GameView: View {
     func Hand(index: Int) -> some View {
         var Hand: some View {
             ScrollView{
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 84))], content: {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], content: {
                     ForEach(game.players[index].hand, id: \.self.value) { item in
                         CardView(card: item)
                     }
                 })
             }
         }
-        
         return Hand
     }
 }

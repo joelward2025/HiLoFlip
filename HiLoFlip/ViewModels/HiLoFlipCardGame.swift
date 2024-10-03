@@ -23,7 +23,7 @@ import SwiftUI
     func resetGame() {
         self.game.resetGame()
         players = game.players
-        print(players[0].hand)
+        isTokenHi = game.isTokenHi
     }
     
     func hand(player: HiLoGame.Player) -> [HiLoGame.Card]{
