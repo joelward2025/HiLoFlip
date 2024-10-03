@@ -43,24 +43,22 @@ struct TokenView: View {
 }
 
 struct CardView: View {
-    var index: Int
-    @State var isFaceUp: Bool = true
+    let card: HiLoGame.Card
+    let cardAspectRatio = 2/3.0
     
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 15.0)
-                .fill(isFaceUp ? colorForIndex(index) : .black)
-            isFaceUp ? AnyView(Front) : AnyView(Back)
-        }.frame(width: 100, height: 155)
-         .onTapGesture {
-             isFaceUp = !isFaceUp
-         }.padding(5)
+                .fill(card.isFaceUp ? colorForIndex(card.value) : .black)
+            card.isFaceUp ? AnyView(Front) : AnyView(Back)
+        }.frame(width: 80, height: 125)
+         .padding(5)
     }
     
     var Front: some View {
         ZStack {
             CenterCircle
-            if index % 10 < 3 {
+            if card.value % 10 < 3 {
                 CornerSymbols
             }
             
@@ -111,13 +109,13 @@ struct CardView: View {
     var CenterCircle: some View {
         ZStack{
             Circle()
-                .frame(width: 70, height: 70)
+                .frame(width: 56, height: 56)
                 .foregroundStyle(.black)
-            Text(String(index))
-                .font(.largeTitle)
+            Text(String(card.value))
+                .font(.title)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
-                .underline(underlinedNums.contains(index))
+                .underline(underlinedNums.contains(card.value))
         }
     }
 
@@ -126,7 +124,7 @@ struct CardView: View {
             Circle()
                 .foregroundStyle(.white)
                 .frame(width: 25, height: 25)
-            Image(systemName: getSymbol(mod: index % 10))
+            Image(systemName: getSymbol(mod: card.value % 10))
                 .foregroundStyle(.black)
         }
         .padding(5)
@@ -149,23 +147,23 @@ struct CardView: View {
 
 
 struct GameView: View {
-    @State var CardOrder = Array(1...100).shuffled()[0..<7]
-    @State var tokenSide = true
+    var game = HiLoFlipCardGame(playerNames: ["Player 1", "Player 2"])
     
     var body: some View {
         ZStack{
             Color(red: 0, green: (119/255), blue: 0).ignoresSafeArea()
             VStack {
-                TopBar
-                Hand
+                Hand(index: 0)
+                MidBar
+                Hand(index: 1)
             }
         }
     }
     
-    var TopBar: some View {
+    var MidBar: some View {
         HStack{
             Spacer()
-            TokenView(isUp: tokenSide)
+            TokenView(isUp: game.isTokenHi)
             ShuffleButton
             Spacer()
         }
@@ -173,8 +171,7 @@ struct GameView: View {
     
     var ShuffleButton: some View {
         Button(action: {
-            CardOrder = Array(1...100).shuffled()[0..<7]
-            tokenSide = Bool.random()}) {
+            game.resetGame()}) {
                     Text("Shuffle")
                         .font(.headline)
                         .padding()
@@ -184,14 +181,19 @@ struct GameView: View {
                 }
     }
     
-    var Hand: some View {
-        ScrollView{
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], content: {
-                ForEach(CardOrder, id: \.self) { item in
-                    CardView(index: item)
-                }
-            }).padding()
+    
+    func Hand(index: Int) -> some View {
+        var Hand: some View {
+            ScrollView{
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 84))], content: {
+                    ForEach(game.players[index].hand, id: \.self.value) { item in
+                        CardView(card: item)
+                    }
+                })
+            }
         }
+        
+        return Hand
     }
 }
 

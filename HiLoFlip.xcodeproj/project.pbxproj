@@ -11,6 +11,8 @@
 		60174C7D2C92522100ED5931 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60174C7C2C92522100ED5931 /* ContentView.swift */; };
 		60174C7F2C92522200ED5931 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60174C7E2C92522200ED5931 /* Assets.xcassets */; };
 		60174C822C92522200ED5931 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60174C812C92522200ED5931 /* Preview Assets.xcassets */; };
+		602DC76D2CAB0458007AE3BF /* HiLoGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC76C2CAB0458007AE3BF /* HiLoGame.swift */; };
+		602DC7702CAB24B5007AE3BF /* HiLoFlipCardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC76F2CAB24B5007AE3BF /* HiLoFlipCardGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		60174C7C2C92522100ED5931 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		60174C7E2C92522200ED5931 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60174C812C92522200ED5931 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		602DC76C2CAB0458007AE3BF /* HiLoGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiLoGame.swift; sourceTree = "<group>"; };
+		602DC76F2CAB24B5007AE3BF /* HiLoFlipCardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiLoFlipCardGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,8 @@
 		60174C792C92522100ED5931 /* HiLoFlip */ = {
 			isa = PBXGroup;
 			children = (
+				602DC76E2CAB2446007AE3BF /* ViewModels */,
+				602DC76B2CAB042F007AE3BF /* Models */,
 				60174C7A2C92522100ED5931 /* HiLoFlipApp.swift */,
 				60174C7C2C92522100ED5931 /* ContentView.swift */,
 				60174C7E2C92522200ED5931 /* Assets.xcassets */,
@@ -65,6 +71,22 @@
 				60174C812C92522200ED5931 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		602DC76B2CAB042F007AE3BF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				602DC76C2CAB0458007AE3BF /* HiLoGame.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		602DC76E2CAB2446007AE3BF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				602DC76F2CAB24B5007AE3BF /* HiLoFlipCardGame.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +159,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				602DC7702CAB24B5007AE3BF /* HiLoFlipCardGame.swift in Sources */,
+				602DC76D2CAB0458007AE3BF /* HiLoGame.swift in Sources */,
 				60174C7D2C92522100ED5931 /* ContentView.swift in Sources */,
 				60174C7B2C92522100ED5931 /* HiLoFlipApp.swift in Sources */,
 			);
