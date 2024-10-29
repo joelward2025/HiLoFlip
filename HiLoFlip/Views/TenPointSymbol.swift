@@ -16,21 +16,21 @@ struct TenPointShape: Shape {
         
         let mx = rect.midX
         let my = rect.midY
-        let r  = rect.midX
-        let s  = rect.midX / 2.3
+        let outerRadius  = Double(min(rect.width, rect.height) / 3)
+        let innerRadius  = rect.midX / 3.8
         
 
-        path.move(to: CGPoint(x: mx + __cospi(0.1) * r, y: my - __sinpi(0.1) * r))
-        path.addLine(to: CGPoint(x: mx + __cospi(0.3) * s, y: my - __sinpi(0.3) * s))
-        path.addLine(to: CGPoint(x: mx + __cospi(0.5) * r, y: my - __sinpi(0.5) * r))
-        path.addLine(to: CGPoint(x: mx + __cospi(0.7) * s, y: my - __sinpi(0.7) * s))
-        path.addLine(to: CGPoint(x: mx + __cospi(0.9) * r, y: my - __sinpi(0.9) * r))
-        path.addLine(to: CGPoint(x: mx + __cospi(1.1) * s, y: my - __sinpi(1.1) * s))
-        path.addLine(to: CGPoint(x: mx + __cospi(1.3) * r, y: my - __sinpi(1.3) * r))
-        path.addLine(to: CGPoint(x: mx + __cospi(1.5) * s, y: my - __sinpi(1.5) * s))
-        path.addLine(to: CGPoint(x: mx + __cospi(1.7) * r, y: my - __sinpi(1.7) * r))
-        path.addLine(to: CGPoint(x: mx + __cospi(1.9) * s, y: my - __sinpi(1.9) * s))
-        path.addLine(to: CGPoint(x: mx + __cospi(0.1) * r, y: my - __sinpi(0.1) * r))
+        path.move(to: CGPoint(x: mx + __cospi(0.1) * outerRadius, y: my - __sinpi(0.1) * outerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(0.3) * innerRadius, y: my - __sinpi(0.3) * innerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(0.5) * outerRadius, y: my - __sinpi(0.5) * outerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(0.7) * innerRadius, y: my - __sinpi(0.7) * innerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(0.9) * outerRadius, y: my - __sinpi(0.9) * outerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(1.1) * innerRadius, y: my - __sinpi(1.1) * innerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(1.3) * outerRadius, y: my - __sinpi(1.3) * outerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(1.5) * innerRadius, y: my - __sinpi(1.5) * innerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(1.7) * outerRadius, y: my - __sinpi(1.7) * outerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(1.9) * innerRadius, y: my - __sinpi(1.9) * innerRadius))
+        path.addLine(to: CGPoint(x: mx + __cospi(0.1) * outerRadius, y: my - __sinpi(0.1) * outerRadius))
         
         return path
 

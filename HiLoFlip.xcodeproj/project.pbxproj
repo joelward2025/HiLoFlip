@@ -16,6 +16,9 @@
 		6097983F2CCB259900AA44AD /* SkipSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097983E2CCB259900AA44AD /* SkipSymbol.swift */; };
 		609798412CCB2C2500AA44AD /* MustPlaySecondSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */; };
 		6097985D2CD0191700AA44AD /* TenPointSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097985C2CD0191700AA44AD /* TenPointSymbol.swift */; };
+		6097985F2CD09D1400AA44AD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097985E2CD09D1400AA44AD /* CardView.swift */; };
+		609798612CD09D9F00AA44AD /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609798602CD09D9F00AA44AD /* TokenView.swift */; };
+		609798632CD09DA800AA44AD /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609798622CD09DA800AA44AD /* GameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		6097983E2CCB259900AA44AD /* SkipSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipSymbol.swift; sourceTree = "<group>"; };
 		609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustPlaySecondSymbol.swift; sourceTree = "<group>"; };
 		6097985C2CD0191700AA44AD /* TenPointSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenPointSymbol.swift; sourceTree = "<group>"; };
+		6097985E2CD09D1400AA44AD /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		609798602CD09D9F00AA44AD /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
+		609798622CD09DA800AA44AD /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,9 @@
 				6097983E2CCB259900AA44AD /* SkipSymbol.swift */,
 				609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */,
 				6097985C2CD0191700AA44AD /* TenPointSymbol.swift */,
+				6097985E2CD09D1400AA44AD /* CardView.swift */,
+				609798602CD09D9F00AA44AD /* TokenView.swift */,
+				609798622CD09DA800AA44AD /* GameView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,9 +189,12 @@
 				602DC7702CAB24B5007AE3BF /* HiLoFlipCardGame.swift in Sources */,
 				602DC76D2CAB0458007AE3BF /* HiLoGame.swift in Sources */,
 				609798412CCB2C2500AA44AD /* MustPlaySecondSymbol.swift in Sources */,
+				609798632CD09DA800AA44AD /* GameView.swift in Sources */,
 				60174C7D2C92522100ED5931 /* ContentView.swift in Sources */,
 				6097983F2CCB259900AA44AD /* SkipSymbol.swift in Sources */,
+				6097985F2CD09D1400AA44AD /* CardView.swift in Sources */,
 				60174C7B2C92522100ED5931 /* HiLoFlipApp.swift in Sources */,
+				609798612CD09D9F00AA44AD /* TokenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

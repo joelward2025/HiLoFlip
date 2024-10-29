@@ -17,7 +17,7 @@ struct HiLoGame {
         self.players = players.map {Player(name: $0)}
         self.deck = Array(1...100).map {Card(value: $0)}
         self.isTokenHi = Bool.random()
-        //dealCards()
+        dealCards()
     }
     
     private mutating func dealCards() {

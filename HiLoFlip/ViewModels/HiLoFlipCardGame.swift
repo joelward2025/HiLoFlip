@@ -10,20 +10,24 @@ import SwiftUI
 
 @Observable class HiLoFlipCardGame {
     private var game: HiLoGame
-    private(set) var players: [HiLoGame.Player]
-    private(set) var isTokenHi: Bool
+    var players: [HiLoGame.Player] {
+        get {
+            game.players
+        }
+    }
+    var isTokenHi: Bool {
+        get {
+            self.game.isTokenHi
+        }
+    }
     
     init(playerNames: [String]) {
         let tempGame = HiLoGame(players: playerNames)
         self.game = tempGame
-        players = tempGame.players
-        isTokenHi = tempGame.isTokenHi
     }
     
     func resetGame() {
         self.game.resetGame()
-        players = game.players
-        isTokenHi = game.isTokenHi
     }
     
     func hand(player: HiLoGame.Player) -> [HiLoGame.Card]{

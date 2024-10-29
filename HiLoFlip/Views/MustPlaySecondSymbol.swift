@@ -12,24 +12,24 @@ struct MustPlaySecondShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        let width = rect.maxX - rect.minX
-        let height = rect.maxY - rect.minY
+        let height = Double(min(rect.width, rect.height) / 2)
+        let cornerRadii = height/10
         
-        let backCard = CGRect(x: rect.minX, y: rect.minY, width: width * (2/3) , height: width )
+        let backCard = CGRect(x: rect.midX/1.75, y: rect.midY/2.2, width: height * (2/3) , height: height)
         
-        let frontCard = CGRect(x: rect.minX + (width/8), y: rect.minY + (width/8), width: width * (2/3) , height: width)
+        let frontCard = CGRect(x: rect.midX/1.75 + (height/7), y: rect.midY/2.2 + (height/7), width: height * (2/3) , height: height)
         
-        let cutout = CGRect(x: rect.minX + (width/12), y: rect.minY + (width/12), width: width * (2/3) , height: width)
+        let cutout = CGRect(x: rect.midX/1.75 + (height/12), y: rect.midY/2.2 + (height/12), width: height * (2/3), height: height)
         
         var negative = Path()
         
-        negative.addRoundedRect(in: cutout, cornerRadii: RectangleCornerRadii(topLeading: 25, bottomLeading: 25, bottomTrailing: 25, topTrailing: 25))
+        negative.addRoundedRect(in: cutout, cornerRadii: RectangleCornerRadii(topLeading: cornerRadii, bottomLeading: cornerRadii, bottomTrailing: cornerRadii, topTrailing: cornerRadii))
         
-        path.addRoundedRect(in: backCard, cornerRadii: RectangleCornerRadii(topLeading: 25, bottomLeading: 25, bottomTrailing: 25, topTrailing: 25))
+        path.addRoundedRect(in: backCard, cornerRadii: RectangleCornerRadii(topLeading: cornerRadii, bottomLeading: cornerRadii, bottomTrailing: cornerRadii, topTrailing: cornerRadii))
         
         path = path.subtracting(negative)
         
-        path.addRoundedRect(in: frontCard, cornerRadii: RectangleCornerRadii(topLeading: 25, bottomLeading: 25, bottomTrailing: 25, topTrailing: 25))
+        path.addRoundedRect(in: frontCard, cornerRadii: RectangleCornerRadii(topLeading: cornerRadii, bottomLeading: cornerRadii, bottomTrailing: cornerRadii, topTrailing: cornerRadii))
         
         return path
     }
@@ -44,7 +44,6 @@ struct MustPlaySecondSymbol: View {
                 .foregroundStyle(color)
         }
         .aspectRatio(contentMode: .fit)
-        .padding()
     }
 }
 
