@@ -79,10 +79,12 @@ struct GameView: View {
         var Hand: some View {
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], content: {
-                    ForEach(game.players[index].hand, id: \.self.value) { item in
-                        CardView(card: item, isUp: isUp)
-                            .gesture(dragGesture(for: item))
-                    }
+                    ForEach(game.players[index].hand, id: \.self.value) { card in
+                        CardView(card: card, isUp: isUp)
+                            .zIndex(draggedCard == card ? 1 : 0)
+                            .offset(draggedCard == card ? dragOffset : .zero)
+                            .gesture(dragGesture(for: card))
+                    }.id(draggedCard)
                 })
             }
         }
@@ -113,11 +115,11 @@ struct GameView: View {
         print("Discard Pile Frame:", discardPileFrame)
         print("Drop Location:", location)
         
-        //if discardPileFrame.contains(location) {
+        if discardPileFrame.contains(location) {
             // If the card is dropped within the discard pile's area, make a play
             withAnimation {
                 game.playCard(card)
             }
-        //}
+        }
     }
 }

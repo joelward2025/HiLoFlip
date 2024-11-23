@@ -54,7 +54,9 @@ struct HiLoGame {
         dealCards()
     }
     
-    struct Card {
+    struct Card : Identifiable, Equatable, Hashable, Codable{
+        var id = UUID()
+        
         let value: Int
         fileprivate(set) var isFaceUp: Bool
         private(set) var isSpecialCard: Bool
