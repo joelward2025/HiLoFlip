@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CardView: View {
     let card: HiLoGame.Card
+    let isUp: Bool
     
     let cardAspectRatio = 2/3.0
     let centerCircleRatio = 2/3.0
@@ -24,7 +25,7 @@ struct CardView: View {
         GeometryReader { geometry in
             ZStack{
                 cardBackground
-                card.isFaceUp ? AnyView(front) : AnyView(back)
+                isUp ? AnyView(front) : AnyView(back)
             }
             .onAppear {
                 cardWidth = geometry.size.width
@@ -40,7 +41,7 @@ struct CardView: View {
     @ViewBuilder
     var cardBackground: some View {
         RoundedRectangle(cornerRadius: 15.0)
-            .fill(card.isFaceUp ? colorForIndex(card.value) : .black)
+            .fill(isUp ? colorForIndex(card.value) : .black)
         }
     
     var front: some View {

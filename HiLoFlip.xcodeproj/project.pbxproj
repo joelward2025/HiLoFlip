@@ -13,6 +13,7 @@
 		60174C822C92522200ED5931 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60174C812C92522200ED5931 /* Preview Assets.xcassets */; };
 		602DC76D2CAB0458007AE3BF /* HiLoGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC76C2CAB0458007AE3BF /* HiLoGame.swift */; };
 		602DC7702CAB24B5007AE3BF /* HiLoFlipCardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC76F2CAB24B5007AE3BF /* HiLoFlipCardGame.swift */; };
+		603FD0232CF195B0006AD141 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603FD0222CF195AB006AD141 /* SettingsView.swift */; };
 		6097983F2CCB259900AA44AD /* SkipSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097983E2CCB259900AA44AD /* SkipSymbol.swift */; };
 		609798412CCB2C2500AA44AD /* MustPlaySecondSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */; };
 		6097985D2CD0191700AA44AD /* TenPointSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097985C2CD0191700AA44AD /* TenPointSymbol.swift */; };
@@ -29,6 +30,7 @@
 		60174C812C92522200ED5931 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		602DC76C2CAB0458007AE3BF /* HiLoGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiLoGame.swift; sourceTree = "<group>"; };
 		602DC76F2CAB24B5007AE3BF /* HiLoFlipCardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiLoFlipCardGame.swift; sourceTree = "<group>"; };
+		603FD0222CF195AB006AD141 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6097983E2CCB259900AA44AD /* SkipSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipSymbol.swift; sourceTree = "<group>"; };
 		609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustPlaySecondSymbol.swift; sourceTree = "<group>"; };
 		6097985C2CD0191700AA44AD /* TenPointSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenPointSymbol.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		6097983D2CCB257D00AA44AD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				603FD0222CF195AB006AD141 /* SettingsView.swift */,
 				6097983E2CCB259900AA44AD /* SkipSymbol.swift */,
 				609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */,
 				6097985C2CD0191700AA44AD /* TenPointSymbol.swift */,
@@ -195,6 +198,7 @@
 				6097985F2CD09D1400AA44AD /* CardView.swift in Sources */,
 				60174C7B2C92522100ED5931 /* HiLoFlipApp.swift in Sources */,
 				609798612CD09D9F00AA44AD /* TokenView.swift in Sources */,
+				603FD0232CF195B0006AD141 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

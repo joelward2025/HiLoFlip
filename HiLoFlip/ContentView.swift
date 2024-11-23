@@ -28,11 +28,26 @@ func getSymbol(mod : Int) -> some View {
 }
 
 struct ContentView: View {
+    @Environment(HiLoFlipCardGame.self) var gameManager
+
     var body: some View {
-        GameView()
+        NavigationStack{
+            VStack {
+                NavigationLink("Settings") {
+                    SettingsView()
+                }
+                NavigationLink("Instructions") {
+                    
+                }
+                NavigationLink("New Game") {
+                    GameView()
+                }
+            }
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .environment(HiLoFlipCardGame(playerNames: ["Player 1", "Player 2"]))
 }

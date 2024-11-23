@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct HiLoFlipApp: App {
+    @State var gameManager = HiLoFlipCardGame(playerNames: ["player1", "player2"])
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(gameManager)
         }
     }
 }
