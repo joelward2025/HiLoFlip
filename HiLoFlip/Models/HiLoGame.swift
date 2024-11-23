@@ -13,6 +13,7 @@ struct HiLoGame {
     private(set) var players: [Player]
     private(set) var isTokenHi: Bool
     private(set) var currPlayer : Int
+    private(set) var flipped: Bool
     
     init(players: [String]) {
         
@@ -21,6 +22,7 @@ struct HiLoGame {
         self.isTokenHi = Bool.random()
         self.discardPile = [Card(value: 50)]
         self.currPlayer = 0
+        self.flipped = false
         dealCards()
     }
     
@@ -112,5 +114,30 @@ struct HiLoGame {
             discardPile.append(card)
         }
         currPlayer = (currPlayer == 1) ? 0 : 1
+        flipped = false
+    }
+    
+    mutating func flipCoin (){        
+        let index = players[currPlayer].hand.firstIndex(where: { Card(value: $0.value).canPlay(on: topDiscardCard!, hi: isTokenHi)})
+        
+        if (!flipped && index == nil) {
+            self.isTokenHi = Bool.random()
+            flipped = true
+            print("flip")
+        }
+    }
+    
+    mutating func topCard() -> Card {
+        return deck.removeLast()
+    }
+    
+    mutating func drawCard() {
+        self.players[currPlayer].hand.append(topCard())
+        
+        if (nil == players[currPlayer].hand.firstIndex(where: { Card(value: $0.value).canPlay(on: topDiscardCard!, hi: isTokenHi)})) {
+            players[(currPlayer + 1) % 2].hand.append(contentsOf: discardPile)
+            self.discardPile = [Card(value: 50)]
+            currPlayer = (currPlayer + 1) % 2
+        }
     }
 }

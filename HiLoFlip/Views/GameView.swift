@@ -31,11 +31,17 @@ struct GameView: View {
         HStack{
             Spacer()
             TokenView(isUp: game.isTokenHi)
+                .onTapGesture {
+                    game.flipCoin()
+                }
             CardView(card: game.topDiscardCard ?? Card(value: 0), isUp: true)
                 .frame(width: 100, height: 150)
                 .overlay(discardPileFrameTracker)
             CardView(card:Card(value: 0), isUp: false)
                 .frame(width: 100, height: 150)
+                .onTapGesture {
+                    game.playerDraw()
+                }
             Spacer()
         }
     }

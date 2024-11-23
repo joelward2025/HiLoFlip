@@ -55,4 +55,12 @@ class HiLoFlipCardGame {
             game.playCard(card)
         }
     }
+    
+    func flipCoin() {
+        game.flipCoin()
+    }
+    
+    func playerDraw() {
+        game.drawCard()
+    }
 }
