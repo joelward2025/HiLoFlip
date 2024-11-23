@@ -111,5 +111,6 @@ struct HiLoGame {
            let card = players[currPlayer].playItem(card) {
             discardPile.append(card)
         }
+        currPlayer = (currPlayer == 1) ? 0 : 1
     }
 }

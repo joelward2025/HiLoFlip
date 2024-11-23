@@ -31,7 +31,11 @@ struct GameView: View {
         HStack{
             Spacer()
             TokenView(isUp: game.isTokenHi)
-            shuffleButton
+            CardView(card: game.topDiscardCard ?? Card(value: 0), isUp: true)
+                .frame(width: 100, height: 150)
+                .overlay(discardPileFrameTracker)
+            CardView(card:Card(value: 0), isUp: false)
+                .frame(width: 100, height: 150)
             Spacer()
         }
     }
@@ -48,6 +52,22 @@ struct GameView: View {
                 }
     }
     
+    var discardPileFrameTracker: some View {
+        GeometryReader { geometry in
+            Color.clear
+                .onAppear {
+                    self.discardPileFrame = geometry.frame(in: .global)
+                }
+                .onChange(of: geometry.frame(in: .global)) { _, newFrame in
+                    self.discardPileFrame = newFrame
+                }
+        }
+        .overlay(
+            Rectangle()
+                .strokeBorder(Color.red, lineWidth: draggedCard != nil ? 3 : 0)
+                .opacity(0.3)
+        )
+    }
     
     func Hand(index: Int, isUp: Bool) -> some View {
         var Hand: some View {
