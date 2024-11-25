@@ -34,9 +34,15 @@ struct GameView: View {
                 .onTapGesture {
                     game.flipCoin()
                 }
-            CardView(card: game.topDiscardCard ?? Card(value: 0), isUp: true)
-                .frame(width: 100, height: 150)
-                .overlay(discardPileFrameTracker)
+            if (game.topDiscardCard != nil) {
+                CardView(card: game.topDiscardCard!, isUp: true)
+                    .frame(width: 100, height: 150)
+                    .overlay(discardPileFrameTracker)
+            } else {
+                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                    .frame(width: 100, height: 150)
+                    .overlay(discardPileFrameTracker)
+            }
             CardView(card:Card(value: 0), isUp: false)
                 .frame(width: 100, height: 150)
                 .onTapGesture {
@@ -111,12 +117,7 @@ struct GameView: View {
     }
     
     func handleDrop(for card: Card, at location: CGPoint) {
-        print("Drop handling...")
-        print("Discard Pile Frame:", discardPileFrame)
-        print("Drop Location:", location)
-        
         if discardPileFrame.contains(location) {
-            // If the card is dropped within the discard pile's area, make a play
             withAnimation {
                 game.playCard(card)
             }

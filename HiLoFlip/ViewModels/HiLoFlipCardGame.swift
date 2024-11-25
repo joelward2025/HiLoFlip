@@ -53,6 +53,8 @@ class HiLoFlipCardGame {
     func playCard(_ card: Card) {
         if let discardCard = topDiscardCard, card.canPlay(on: discardCard, hi: isTokenHi) {
             game.playCard(card)
+        } else if (topDiscardCard == nil) {
+            game.playCard(card)
         }
     }
     

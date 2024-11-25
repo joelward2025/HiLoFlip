@@ -21,7 +21,7 @@ struct HiLoGame {
         self.players = players.map {Player(name: $0)}
         self.deck = Array(1...100).map {Card(value: $0)}
         self.isTokenHi = Bool.random()
-        self.discardPile = [Card(value: 50)]
+        self.discardPile = [/*Card(value: 50)*/]
         self.currPlayer = 0
         self.lastPlayer = 0
         self.flipped = false
@@ -107,8 +107,12 @@ struct HiLoGame {
     
     var topDiscardCard: Card? {
         var card = discardPile.last
-        card?.isFaceUp = true
-        return card
+        if (card == nil) {
+            return nil
+        } else {
+            card?.isFaceUp = true
+            return card
+        }
     }
     
     mutating func playCard(_ card: Card) {
@@ -119,9 +123,22 @@ struct HiLoGame {
             lastPlayer = currPlayer
             
             if (card.value % 10 == 1) {
+                self.opponentDraw()
+                flipped = false
+                
+            } else if (card.value % 10 == 2) {
+                flipped = true
+            } else {
                 currPlayer = (currPlayer == 1) ? 0 : 1
-                self.drawCard()
-                currPlayer = (currPlayer == 1) ? 0 : 1
+                flipped = false
+            }
+        } else if discardPile == [] {
+            players[currPlayer].playItem(card)
+            discardPile.append(card)
+            lastPlayer = currPlayer
+            
+            if (card.value % 10 == 1) {
+                self.opponentDraw()
                 flipped = false
                 
             } else if (card.value % 10 == 2) {
@@ -152,8 +169,12 @@ struct HiLoGame {
         
         if (nil == players[currPlayer].hand.firstIndex(where: { Card(value: $0.value).canPlay(on: topDiscardCard!, hi: isTokenHi)})) {
             players[lastPlayer].hand.append(contentsOf: discardPile)
-            self.discardPile = [Card(value: 50)]
+            self.discardPile = [/*Card(value: 50)*/]
             currPlayer = (currPlayer + 1) % 2
         }
+    }
+    
+    mutating func opponentDraw() {
+        self.players[(currPlayer + 1) % 2].hand.append(topCard())
     }
 }
