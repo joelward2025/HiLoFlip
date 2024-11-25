@@ -128,7 +128,6 @@ struct CardView: View {
             HStack{
                 Spacer()
                 symbol
-                    .rotationEffect(Angle(degrees: 180))
             }
         }
     }

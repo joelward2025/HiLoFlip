@@ -33,19 +33,37 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                NavigationLink("Settings") {
-                    SettingsView()
-                }
-                NavigationLink("Instructions") {
-                    
-                }
-                NavigationLink("New Game") {
-                    GameView()
+                NavigationLink(value: GameRoute.game) {
+                    homePageOption("Start New Game", color: .blue)
+                }.padding()
+                NavigationLink(value: GameRoute.instructions) {
+                    homePageOption("Instructions", color: .blue)
+                }.padding()
+                NavigationLink(value: GameRoute.settings) {
+                    homePageOption("Settings", color: .blue)
+                }.padding()
+            }
+            .navigationDestination(for: GameRoute.self) { route in
+                switch route {
+                    case .game: GameView()
+                    case .instructions: GameView() //InstructionsView()
+                    case .settings: SettingsView()
+                    case .resume: GameView(/*isNewGame: false*/)
                 }
             }
         }
     }
 }
+
+func homePageOption(_ text: String, color: Color) -> some View {
+        Text(text)
+            .font(.title)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(color)
+            .foregroundStyle(.white)
+            .cornerRadius(10)
+    }
 
 #Preview {
     ContentView()

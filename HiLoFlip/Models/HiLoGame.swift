@@ -169,7 +169,7 @@ struct HiLoGame {
         
         if (nil == players[currPlayer].hand.firstIndex(where: { Card(value: $0.value).canPlay(on: topDiscardCard!, hi: isTokenHi)})) {
             players[lastPlayer].hand.append(contentsOf: discardPile)
-            self.discardPile = [/*Card(value: 50)*/]
+            self.discardPile = []
             currPlayer = (currPlayer + 1) % 2
         }
     }

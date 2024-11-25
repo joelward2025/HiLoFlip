@@ -14,6 +14,7 @@
 		602DC76D2CAB0458007AE3BF /* HiLoGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC76C2CAB0458007AE3BF /* HiLoGame.swift */; };
 		602DC7702CAB24B5007AE3BF /* HiLoFlipCardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC76F2CAB24B5007AE3BF /* HiLoFlipCardGame.swift */; };
 		603FD0232CF195B0006AD141 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603FD0222CF195AB006AD141 /* SettingsView.swift */; };
+		6064859E2CF501F7003E8875 /* GameRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6064859D2CF501F6003E8875 /* GameRoute.swift */; };
 		6097983F2CCB259900AA44AD /* SkipSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097983E2CCB259900AA44AD /* SkipSymbol.swift */; };
 		609798412CCB2C2500AA44AD /* MustPlaySecondSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */; };
 		6097985D2CD0191700AA44AD /* TenPointSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097985C2CD0191700AA44AD /* TenPointSymbol.swift */; };
@@ -31,6 +32,7 @@
 		602DC76C2CAB0458007AE3BF /* HiLoGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiLoGame.swift; sourceTree = "<group>"; };
 		602DC76F2CAB24B5007AE3BF /* HiLoFlipCardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiLoFlipCardGame.swift; sourceTree = "<group>"; };
 		603FD0222CF195AB006AD141 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6064859D2CF501F6003E8875 /* GameRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoute.swift; sourceTree = "<group>"; };
 		6097983E2CCB259900AA44AD /* SkipSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipSymbol.swift; sourceTree = "<group>"; };
 		609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustPlaySecondSymbol.swift; sourceTree = "<group>"; };
 		6097985C2CD0191700AA44AD /* TenPointSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenPointSymbol.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		6097983D2CCB257D00AA44AD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6064859D2CF501F6003E8875 /* GameRoute.swift */,
 				603FD0222CF195AB006AD141 /* SettingsView.swift */,
 				6097983E2CCB259900AA44AD /* SkipSymbol.swift */,
 				609798402CCB2C2500AA44AD /* MustPlaySecondSymbol.swift */,
@@ -191,6 +194,7 @@
 				6097985D2CD0191700AA44AD /* TenPointSymbol.swift in Sources */,
 				602DC7702CAB24B5007AE3BF /* HiLoFlipCardGame.swift in Sources */,
 				602DC76D2CAB0458007AE3BF /* HiLoGame.swift in Sources */,
+				6064859E2CF501F7003E8875 /* GameRoute.swift in Sources */,
 				609798412CCB2C2500AA44AD /* MustPlaySecondSymbol.swift in Sources */,
 				609798632CD09DA800AA44AD /* GameView.swift in Sources */,
 				60174C7D2C92522100ED5931 /* ContentView.swift in Sources */,

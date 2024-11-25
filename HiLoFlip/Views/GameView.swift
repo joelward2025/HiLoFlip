@@ -21,8 +21,11 @@ struct GameView: View {
             Color(red: 0, green: (119/255), blue: 0).ignoresSafeArea()
             VStack {
                 Hand(index: 0, isUp: game.currPlayer == 0)
+                    //.zIndex(1)
                 midBar
+                    //.zIndex(0)
                 Hand(index: 1, isUp: game.currPlayer == 1)
+                    //.zIndex(0)
             }
         }
     }
@@ -39,9 +42,15 @@ struct GameView: View {
                     .frame(width: 100, height: 150)
                     .overlay(discardPileFrameTracker)
             } else {
-                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                    .frame(width: 100, height: 150)
-                    .overlay(discardPileFrameTracker)
+                ZStack{
+                    RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                        .frame(width: 100, height: 150)
+                        .foregroundStyle(.black)
+                        .overlay(discardPileFrameTracker)
+                    Text("Discard")
+                        .foregroundStyle(.white)
+                        .font(.body)
+                }
             }
             CardView(card:Card(value: 0), isUp: false)
                 .frame(width: 100, height: 150)
@@ -83,16 +92,17 @@ struct GameView: View {
     
     func Hand(index: Int, isUp: Bool) -> some View {
         var Hand: some View {
-            ScrollView{
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], content: {
+            ScrollView(.horizontal){
+                LazyHGrid(rows: [GridItem(.adaptive(minimum: 100))]) {
                     ForEach(game.players[index].hand, id: \.self.value) { card in
                         CardView(card: card, isUp: isUp)
                             .zIndex(draggedCard == card ? 1 : 0)
                             .offset(draggedCard == card ? dragOffset : .zero)
                             .gesture(dragGesture(for: card))
+                            .shadow(color: draggedCard == card ? .black : .clear, radius: 10)
                     }.id(draggedCard)
-                })
-            }
+                }
+            }.layoutPriority(1)
         }
         return Hand
     }

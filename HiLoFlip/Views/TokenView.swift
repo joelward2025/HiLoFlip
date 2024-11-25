@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TokenView: View {
     var isUp: Bool
+    @State var press: Bool = false
     var body: some View {
         ZStack{
             Circle()
@@ -21,5 +22,17 @@ struct TokenView: View {
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
         }
+        .shadow(radius: press ? 20 : 0)
+        .gesture(DragGesture(minimumDistance: 0.0, coordinateSpace: .global)
+            .onChanged { _ in
+                press = true
+            }
+            .onEnded { _ in
+                press = false
+            })
     }
+}
+
+#Preview {
+    TokenView(isUp: true)
 }
