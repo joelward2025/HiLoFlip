@@ -75,7 +75,7 @@ struct CardView: View {
                 .padding(cardWidth / 10)
                 .frame(width: HiLoCircleRatio * cardWidth, height: HiLoCircleRatio * cardWidth)
             Text("HI")
-                .font(.title)
+                .font(.title2)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
         }
@@ -88,7 +88,7 @@ struct CardView: View {
                 .padding(cardWidth / 10)
                 .frame(width: HiLoCircleRatio * cardWidth, height: HiLoCircleRatio * cardWidth)
             Text("LO")
-                .font(.title)
+                .font(.title2)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
         }

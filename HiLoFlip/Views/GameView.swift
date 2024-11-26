@@ -9,10 +9,14 @@ import Foundation
 import SwiftUI
 
 struct GameView: View {
-    var game = HiLoFlipCardGame(playerNames: ["Player 1", "Player 2"])
-    
+    //var gameManager = HiLoFlipCardGame(playerNames: ["Player 1", "Player 2"])
+    @Environment(HiLoFlipCardGame.self) var gameManager
+    @Environment(\.dismiss) var dismiss
+
     typealias Card = HiLoGame.Card
+    var isNewGame: Bool
     @State var draggedCard: Card?
+    @State private var showActionSheet = false
     @GestureState var dragOffset: CGSize = .zero
     @State private var discardPileFrame: CGRect = .zero
     
@@ -20,12 +24,37 @@ struct GameView: View {
         ZStack{
             Color(red: 0, green: (119/255), blue: 0).ignoresSafeArea()
             VStack {
-                Hand(index: 0, isUp: game.currPlayer == 0)
+                Text(gameManager.playerNames[0])
+                    .foregroundStyle(.white)
+                Hand(index: 0, isUp: gameManager.currPlayer == 0)
                     //.zIndex(1)
                 midBar
                     //.zIndex(0)
-                Hand(index: 1, isUp: game.currPlayer == 1)
+                Hand(index: 1, isUp: gameManager.currPlayer == 1)
                     //.zIndex(0)
+                Text(gameManager.playerNames[1])
+                    .foregroundStyle(.white)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            Button("Quit") {
+                showActionSheet = true
+            }
+            .actionSheet(isPresented: $showActionSheet) {
+                ActionSheet(
+                    title: Text("Are you sure?"),
+                    buttons: [
+                        .default(Text("Quit")) {
+                            dismiss()
+                        }
+                    ]
+                )
+            }
+        }
+        .onAppear {
+            if isNewGame {
+                gameManager.resetGame()
             }
         }
     }
@@ -33,12 +62,12 @@ struct GameView: View {
     var midBar: some View {
         HStack{
             Spacer()
-            TokenView(isUp: game.isTokenHi)
+            TokenView(isUp: gameManager.isTokenHi)
                 .onTapGesture {
-                    game.flipCoin()
+                    gameManager.flipCoin()
                 }
-            if (game.topDiscardCard != nil) {
-                CardView(card: game.topDiscardCard!, isUp: true)
+            if (gameManager.topDiscardCard != nil) {
+                CardView(card: gameManager.topDiscardCard!, isUp: true)
                     .frame(width: 100, height: 150)
                     .overlay(discardPileFrameTracker)
             } else {
@@ -55,7 +84,7 @@ struct GameView: View {
             CardView(card:Card(value: 0), isUp: false)
                 .frame(width: 100, height: 150)
                 .onTapGesture {
-                    game.playerDraw()
+                    gameManager.playerDraw()
                 }
             Spacer()
         }
@@ -63,7 +92,7 @@ struct GameView: View {
     
     var shuffleButton: some View {
         Button(action: {
-            game.resetGame()}) {
+            gameManager.resetGame()}) {
                     Text("Shuffle")
                         .font(.headline)
                         .padding()
@@ -94,7 +123,7 @@ struct GameView: View {
         var Hand: some View {
             ScrollView(.horizontal){
                 LazyHGrid(rows: [GridItem(.adaptive(minimum: 100))]) {
-                    ForEach(game.players[index].hand, id: \.self.value) { card in
+                    ForEach(gameManager.players[index].hand, id: \.self.value) { card in
                         CardView(card: card, isUp: isUp)
                             .zIndex(draggedCard == card ? 1 : 0)
                             .offset(draggedCard == card ? dragOffset : .zero)
@@ -129,7 +158,7 @@ struct GameView: View {
     func handleDrop(for card: Card, at location: CGPoint) {
         if discardPileFrame.contains(location) {
             withAnimation {
-                game.playCard(card)
+                gameManager.playCard(card)
             }
         }
     }

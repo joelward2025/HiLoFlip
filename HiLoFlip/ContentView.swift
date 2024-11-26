@@ -29,7 +29,7 @@ func getSymbol(mod : Int) -> some View {
 
 struct ContentView: View {
     @Environment(HiLoFlipCardGame.self) var gameManager
-
+    
     var body: some View {
         NavigationStack{
             VStack {
@@ -45,10 +45,10 @@ struct ContentView: View {
             }
             .navigationDestination(for: GameRoute.self) { route in
                 switch route {
-                    case .game: GameView()
-                    case .instructions: GameView() //InstructionsView()
+                    case .game: GameView(isNewGame: true)
+                    case .instructions: SettingsView() //InstructionsView()
                     case .settings: SettingsView()
-                    case .resume: GameView(/*isNewGame: false*/)
+                    case .resume: GameView(isNewGame: false)
                 }
             }
         }
