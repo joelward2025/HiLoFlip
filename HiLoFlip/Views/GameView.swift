@@ -38,20 +38,23 @@ struct GameView: View {
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            Button("Quit") {
-                showActionSheet = true
-            }
-            .actionSheet(isPresented: $showActionSheet) {
-                ActionSheet(
-                    title: Text("Are you sure?"),
-                    buttons: [
-                        .default(Text("Quit")) {
-                            dismiss()
-                        }
-                    ]
-                )
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Quit") {
+                    showActionSheet = true
+                }
+                .actionSheet(isPresented: $showActionSheet) {
+                    ActionSheet(
+                        title: Text("Are you sure?"),
+                        buttons: [
+                            .default(Text("Quit")) {
+                                dismiss()
+                            }
+                        ]
+                    )
+                }
             }
         }
+        .foregroundStyle(.white)
         .onAppear {
             if isNewGame {
                 gameManager.resetGame()
@@ -84,7 +87,9 @@ struct GameView: View {
             CardView(card:Card(value: 0), isUp: false)
                 .frame(width: 100, height: 150)
                 .onTapGesture {
-                    gameManager.playerDraw()
+                    if (gameManager.topDiscardCard!.value % 10 != 2) {
+                        gameManager.playerDraw()
+                    }
                 }
             Spacer()
         }

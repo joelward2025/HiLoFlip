@@ -13,7 +13,6 @@ struct HiLoGame {
     private(set) var players: [Player]
     private(set) var isTokenHi: Bool
     private(set) var currPlayer : Int
-    private(set) var lastPlayer : Int
     private(set) var flipped: Bool
     
     init(players: [String]) {
@@ -23,7 +22,6 @@ struct HiLoGame {
         self.isTokenHi = Bool.random()
         self.discardPile = [/*Card(value: 50)*/]
         self.currPlayer = 0
-        self.lastPlayer = 0
         self.flipped = false
         dealCards()
     }
@@ -91,11 +89,13 @@ struct HiLoGame {
         fileprivate(set) var name: String
         fileprivate(set) var hand: [Card]
         private(set) var score: Int
+        fileprivate(set) var collectedCards: [Card]
         
         init(name: String){
             self.name = name
             self.hand = []
             self.score = 0
+            self.collectedCards = []
         }
         
         mutating func playItem(_ card: Card) -> Card? {
@@ -122,7 +122,6 @@ struct HiLoGame {
            card.canPlay(on: topDiscardCard, hi: isTokenHi),
            let card = players[currPlayer].playItem(card) {
             discardPile.append(card)
-            lastPlayer = currPlayer
             
             if (card.value % 10 == 1) {
                 self.opponentDraw()
@@ -137,7 +136,6 @@ struct HiLoGame {
         } else if discardPile == [] {
             players[currPlayer].playItem(card)
             discardPile.append(card)
-            lastPlayer = currPlayer
             
             if (card.value % 10 == 1) {
                 self.opponentDraw()
@@ -170,7 +168,7 @@ struct HiLoGame {
         self.players[currPlayer].hand.append(topCard())
         
         if (nil == players[currPlayer].hand.firstIndex(where: { Card(value: $0.value).canPlay(on: topDiscardCard!, hi: isTokenHi)})) {
-            players[lastPlayer].hand.append(contentsOf: discardPile)
+            players[(currPlayer + 1) % 2].collectedCards.append(contentsOf: discardPile)
             self.discardPile = []
             currPlayer = (currPlayer + 1) % 2
         }

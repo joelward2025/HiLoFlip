@@ -46,7 +46,7 @@ struct ContentView: View {
             .navigationDestination(for: GameRoute.self) { route in
                 switch route {
                     case .game: GameView(isNewGame: true)
-                    case .instructions: SettingsView() //InstructionsView()
+                    case .instructions: InstructionsView()
                     case .settings: SettingsView()
                 }
             }
