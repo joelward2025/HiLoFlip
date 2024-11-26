@@ -52,7 +52,9 @@ struct HiLoGame {
             players[p].hand = []
         }
         self.deck = Array(1...100).map {Card(value: $0)}
+        self.discardPile = []
         self.isTokenHi = Bool.random()
+        self.currPlayer = 0
         dealCards()
     }
     

@@ -27,11 +27,11 @@ struct GameView: View {
                 Text(gameManager.playerNames[0])
                     .foregroundStyle(.white)
                 Hand(index: 0, isUp: gameManager.currPlayer == 0)
-                    //.zIndex(1)
+                    .zIndex(1)
                 midBar
-                    //.zIndex(0)
+                    .zIndex(0)
                 Hand(index: 1, isUp: gameManager.currPlayer == 1)
-                    //.zIndex(0)
+                    .zIndex(1)
                 Text(gameManager.playerNames[1])
                     .foregroundStyle(.white)
             }
@@ -126,7 +126,7 @@ struct GameView: View {
                     ForEach(gameManager.players[index].hand, id: \.self.value) { card in
                         CardView(card: card, isUp: isUp)
                             .zIndex(draggedCard == card ? 1 : 0)
-                            .offset(draggedCard == card ? dragOffset : .zero)
+                            .offset(draggedCard == card && index == gameManager.currPlayer ? dragOffset : .zero)
                             .gesture(dragGesture(for: card))
                             .shadow(color: draggedCard == card ? .black : .clear, radius: 10)
                     }.id(draggedCard)

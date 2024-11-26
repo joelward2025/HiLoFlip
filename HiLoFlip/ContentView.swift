@@ -48,7 +48,6 @@ struct ContentView: View {
                     case .game: GameView(isNewGame: true)
                     case .instructions: SettingsView() //InstructionsView()
                     case .settings: SettingsView()
-                    case .resume: GameView(isNewGame: false)
                 }
             }
         }
